@@ -1,5 +1,12 @@
 package com.epam.homework;
 
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Scanner;
+
+import static java.lang.Math.abs;
+
 public class Task16 {
 
     /**
@@ -61,5 +68,65 @@ public class Task16 {
      */
     public static void main(String[] args) {
         // TODO реализация
+        try(Scanner scanner  = new Scanner(System.in)){
+            int dimension = scanner.nextInt();
+            int[][] matrix = readMatrix(scanner, dimension);
+            rotateMatrix(matrix, scanner.nextInt());
+        }
+    }
+
+    private static void rotateMatrix(int[][] matrix, int k) {
+        List<int[]> list = new LinkedList<>(Arrays.asList(matrix));
+        if (k < 0){
+            for (int i = 0; i < Math.abs(k); i++) {
+                list = Arrays.asList(rotateMatrixLeft(list.toArray(new int[list.size()][])));
+            }
+        }else {
+            for (int i = 0; i < k; i++) {
+                list = Arrays.asList(rotateMatrixRight(list.toArray(new int[list.size()][])));
+            }
+        }
+        matrix =  list.toArray(new int[list.size()][]);
+        printMatrix(matrix);
+    }
+
+    private static void printMatrix(int [][] matrix) {
+        System.out.println(matrix.length);
+        for (int[] aMatrix : matrix) {
+            for (int col = 0; col < matrix.length; ++col) {
+                System.out.print(aMatrix[col] + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    private static int[][] rotateMatrixRight(int [][] matrix) {
+        int [][] result = new int[matrix.length][matrix.length];
+        for (int row = 0; row < matrix.length; ++row) {
+            for (int col = 0; col < matrix.length; ++col) {
+                result[row][col] = matrix[matrix.length - col - 1][row];
+            }
+        }
+        return result;
+    }
+
+    private static int[][] rotateMatrixLeft(int [][] matrix) {
+        int [][] result = new int[matrix.length][matrix.length];
+        for (int row = 0; row < matrix.length; ++row) {
+            for (int col = 0; col < matrix.length; ++col) {
+                result[row][col] = matrix[col][matrix.length - row - 1];
+            }
+        }
+        return result;
+    }
+
+    private static int[][] readMatrix(Scanner scanner, int dimension) {
+        int[][] matrix = new int[dimension][dimension];
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                matrix[row][col] = scanner.nextInt();
+            }
+        }
+        return matrix;
     }
 }
