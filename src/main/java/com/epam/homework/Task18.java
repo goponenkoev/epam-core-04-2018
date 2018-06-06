@@ -85,7 +85,8 @@ class Matrix {
     }
 
     void printMatrix() {
-        System.out.println(matrix.length);
+        System.out.println(rows);
+        System.out.println(columns);
         for (int[] aMatrix : matrix) {
             for (int col = 0; col < columns; ++col) {
                 System.out.print(aMatrix[col] + "\t");
