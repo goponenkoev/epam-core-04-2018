@@ -63,10 +63,11 @@ public class Task18 {
 class Matrix {
 
     private int[][] matrix;
-    private HashSet<Integer> indexOfRow = new HashSet<>();
-    private HashSet<Integer> indexOfColumn = new HashSet<>();
+    private Set<Integer> indexOfRow = new HashSet<>();
+    private Set<Integer> indexOfColumn = new HashSet<>();
     private int rows;
     private int columns;
+    private int max = Integer.MIN_VALUE;
 
     Matrix() {
         readMatrix();
@@ -79,6 +80,9 @@ class Matrix {
             for (int row = 0; row < rows; ++row) {
                 for (int col = 0; col < columns; ++col) {
                     matrix[row][col] = scanner.nextInt();
+                    if (max < matrix[row][col]) {
+                        max = matrix[row][col];
+                    }
                 }
             }
         }
@@ -95,20 +99,8 @@ class Matrix {
         }
     }
 
-    private int findMaxElemenet() {
-        int max = Integer.MIN_VALUE;
-        for (int[] aMatrix : matrix) {
-            for (int col = 0; col < columns; ++col) {
-                if (max < aMatrix[col]) {
-                    max = aMatrix[col];
-                }
-            }
-        }
-        return max;
-    }
-
     void removeRowColoumns() {
-        int maxElemenet = findMaxElemenet();
+        int maxElemenet = max;
         for (int row = 0; row < rows; ++row) {
             for (int col = 0; col < columns; ++col) {
                 if (maxElemenet == matrix[row][col]) {
@@ -117,11 +109,11 @@ class Matrix {
                 }
             }
         }
-        removeColumn();
-        removeRow();
+        removeColumns();
+        removeRows();
     }
 
-    private void removeRow() {
+    private void removeRows() {
         int[][] newMatrx = new int[rows - indexOfRow.size()][columns];
         for (int i = 0, j = 0; i < rows - indexOfRow.size(); i++, j++) {
             while (indexOfRow.contains(j)) {
@@ -133,7 +125,7 @@ class Matrix {
         rows-=indexOfRow.size();
     }
 
-    private void removeColumn() {
+    private void removeColumns() {
         int[][] newMatrx = new int[rows][columns - indexOfColumn.size()];
         for (int j = 0, k = 0; j < columns - indexOfColumn.size(); j++, k++) {
             while (indexOfColumn.contains(k)) {
