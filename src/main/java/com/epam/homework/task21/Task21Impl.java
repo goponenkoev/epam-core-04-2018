@@ -1,9 +1,6 @@
 package com.epam.homework.task21;
 
-import javafx.print.Collation;
-
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
