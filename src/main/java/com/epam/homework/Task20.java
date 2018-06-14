@@ -1,8 +1,6 @@
 package com.epam.homework;
 
-import java.util.HashSet;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Task20 {
 
@@ -38,13 +36,18 @@ public class Task20 {
      * 2  4 -3 -2
      * -1  0  3  2
      * -2  1  4 -1
-     *
      */
     public static void main(String[] args) {
         // TODO реализация
-        Matrix matrix = new Matrix();
-        matrix.moveMinElemenet();
-        matrix.printMatrix();
+        try (Scanner scanner = new Scanner(System.in)) {
+            int finalRow = scanner.nextInt();
+            int finalCol = scanner.nextInt();
+
+            Matrix matrix = new Matrix();
+            matrix.readMatrix(scanner);
+            matrix.moveMinElement(finalRow, finalCol);
+            matrix.printMatrix();
+        }
     }
 }
 
@@ -53,30 +56,23 @@ class Matrix {
     private int[][] matrix;
     private int rowMin = 0;
     private int colMin = 0;
-    private int finalRow = 0;
-    private int finalCol = 0;
 
     Matrix() {
-        readMatrix();
+        matrix = new int[0][0];
     }
 
-    private void readMatrix() {
+    void readMatrix(Scanner scanner) {
         int minValue = Integer.MAX_VALUE;
+        int dimension = scanner.nextInt();
+        matrix = new int[dimension][dimension];
 
-        try (Scanner scanner = new Scanner(System.in)) {
-            finalRow = scanner.nextInt();
-            finalCol = scanner.nextInt();
-
-            int dimension = scanner.nextInt();
-            matrix = new int[dimension][dimension];
-            for (int row = 0; row < dimension; ++row) {
-                for (int col = 0; col < dimension; ++col) {
-                    matrix[row][col] = scanner.nextInt();
-                    if (minValue > matrix[row][col]) {
-                        minValue = matrix[row][col];
-                        rowMin = row;
-                        colMin = col;
-                    }
+        for (int row = 0; row < dimension; ++row) {
+            for (int col = 0; col < dimension; ++col) {
+                matrix[row][col] = scanner.nextInt();
+                if (minValue > matrix[row][col]) {
+                    minValue = matrix[row][col];
+                    rowMin = row;
+                    colMin = col;
                 }
             }
         }
@@ -92,7 +88,7 @@ class Matrix {
         }
     }
 
-    void moveMinElemenet() {
+    void moveMinElement(int finalRow, int finalCol) {
         int[] tempRow = matrix[rowMin];
         matrix[rowMin] = matrix[finalRow];
         matrix[finalRow] = tempRow;
