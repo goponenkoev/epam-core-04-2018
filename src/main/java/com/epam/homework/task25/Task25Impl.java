@@ -1,7 +1,5 @@
 package com.epam.homework.task25;
 
-import javafx.util.Pair;
-
 import java.util.Stack;
 
 public class Task25Impl implements Task25 {
