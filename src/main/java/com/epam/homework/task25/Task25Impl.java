@@ -15,37 +15,30 @@ public class Task25Impl implements Task25 {
      */
     @Override
     public boolean isNormalBrackets(String string) {
-        Stack<Integer> stackBrackets = new Stack<>();
+        Stack<Byte> stackBrackets = new Stack<>();
         // () - 0
         // {} - 1
         // [] - 2
-        // <> - 3
 
         for (int j = 0; j < string.length(); j++) {
             switch (string.charAt(j)) {
                 case '(':
-                    stackBrackets.push(0);
+                    stackBrackets.push((byte)0);
                     break;
                 case ')':
-                    if ((stackBrackets.empty()) || (!stackBrackets.pop().equals(0))) return false;
+                    if ((stackBrackets.empty()) || (!stackBrackets.pop().equals((byte)0))) return false;
                     break;
                 case '{':
-                    stackBrackets.push(1);
+                    stackBrackets.push((byte)1);
                     break;
                 case '}':
-                    if ((stackBrackets.empty()) || (!stackBrackets.pop().equals(1))) return false;
+                    if ((stackBrackets.empty()) || (!stackBrackets.pop().equals((byte)1))) return false;
                     break;
                 case '[':
-                    stackBrackets.push(2);
+                    stackBrackets.push((byte)2);
                     break;
                 case ']':
-                    if ((stackBrackets.empty()) || (!stackBrackets.pop().equals(2))) return false;
-                    break;
-                case '<':
-                    stackBrackets.push(3);
-                    break;
-                case '>':
-                    if ((stackBrackets.empty()) || (!stackBrackets.pop().equals(3))) return false;
+                    if ((stackBrackets.empty()) || (!stackBrackets.pop().equals((byte)2))) return false;
                     break;
                 default:
                     break;
