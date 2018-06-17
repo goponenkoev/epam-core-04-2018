@@ -3,6 +3,7 @@ package com.epam.homework.task26;
 import java.util.*;
 
 public class Task26Impl implements Task26 {
+
     @Override
     public Set<I2DPoint> analyze(Set<ISegment> segments) {
 
@@ -54,7 +55,7 @@ public class Task26Impl implements Task26 {
         double seg2_start = a1*segment2.first().getX() + b1*segment2.first().getY() + d1;
         double seg2_end = a1*segment2.second().getX() + b1*segment2.second().getY() + d1;
 
-        if (seg1_start * seg1_end >= 0 || seg2_start * seg2_end >= 0)
+        if (seg1_start * seg1_end > 0 || seg2_start * seg2_end > 0)
             return null;
 
         double u = seg1_start / (seg1_start - seg1_end);
