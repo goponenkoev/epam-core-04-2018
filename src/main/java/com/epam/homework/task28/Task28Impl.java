@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Task28Impl implements Task28 {
+
     @Override
     public int getNumberOvertaking(Set<Car> cars, int lapLength, int lapsCount) {
         List<Car> listCars = new ArrayList<>(cars);
@@ -24,13 +25,14 @@ public class Task28Impl implements Task28 {
         int result = 0;
         int timeFirstCar = distance / firstCar.getSpeed();
         int timeSecondCar = distance / secondCar.getSpeed();
-        int difference = (distance - secondCar.getSpeed() * Math.min(timeFirstCar, timeSecondCar));
+        int difference = (distance - Math.min(firstCar.getSpeed(), secondCar.getSpeed()) * Math.min(timeFirstCar, timeSecondCar));
 
-        result += difference / lapLength;
+        result += Math.abs(difference / lapLength);
 
         if (!((secondCar.getSpeed() == firstCar.getSpeed()) && (firstCar.getStartPosition() == secondCar.getStartPosition()))) {
             ++result;
         }
+
         return result;
     }
 }
