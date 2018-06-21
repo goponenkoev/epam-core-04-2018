@@ -6,15 +6,25 @@ import java.util.List;
 import java.util.Set;
 
 public class Task28Impl implements Task28{
+
+    /**
+     * На кольцевой гоночной трассе стоит N автомобилей.
+     * Для каждого из них известны начальное положение и скорость.
+     * Определить, сколько произойдет обгонов за указанное количество кругов.
+     * @param cars Расположенные на трассе машины.
+     * @param lengthLap Длина одного круга.
+     * @param numberLaps Количество кругов.
+     * @return Количество осуществленных обгонов.
+     */
     @Override
-    public int getNumberOvertaking(Set<Car> cars, int lapLength, int lapsCount) {
+    public int getNumberOvertaking(Set<Car> cars, int lengthLap, int numberLaps) {
         List<Car> listCars = new ArrayList<>(cars);
-        int distance = lapLength * lapsCount;
+        int distance = lengthLap * numberLaps;
         int overTakingCount = 0;
 
         for (int i = 0; i < listCars.size(); i++) {
             for (int j = i + 1; j < listCars.size(); j++) {
-                overTakingCount+=countOverTaing(listCars.get(i), listCars.get(j), distance, lapLength);
+                overTakingCount+=countOverTaing(listCars.get(i), listCars.get(j), distance, lengthLap);
             }
         }
         return overTakingCount;
@@ -29,15 +39,13 @@ public class Task28Impl implements Task28{
         result += Math.abs(difference / length);
 
         if ((first.getStartPosition() < second.getStartPosition()) && (second.getSpeed() > first.getSpeed())) {
-            result += 1;
+            result++;
         }
         if ((first.getStartPosition() > second.getStartPosition()) && (second.getSpeed() < first.getSpeed())) {
-            result += 1;
+            result++;
         }
         return result;
     }
-
-
 
 }
 
