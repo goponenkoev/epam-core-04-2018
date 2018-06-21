@@ -8,14 +8,14 @@ import java.util.Set;
 public class Task28Impl implements Task28{
 
     @Override
-    public int getNumberOvertaking(Set<Car> cars, int lapLength, int lapsCount) {
+    public int getNumberOvertaking(Set<Car> cars, int lengthLap, int numberLaps) {
         List<Car> listCars = new ArrayList<>(cars);
-        int distance = lapLength * lapsCount;
+        int distance = lengthLap * numberLaps;
         int overTakingCount = 0;
 
         for (int i = 0; i < listCars.size(); i++) {
             for (int j = i + 1; j < listCars.size(); j++) {
-                overTakingCount+=countOverTaing(listCars.get(i), listCars.get(j), distance, lapLength);
+                overTakingCount+=countOverTaing(listCars.get(i), listCars.get(j), distance, lengthLap);
             }
         }
         return overTakingCount;
