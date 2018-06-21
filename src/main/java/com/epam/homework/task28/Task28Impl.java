@@ -6,37 +6,39 @@ import java.util.List;
 import java.util.Set;
 
 public class Task28Impl implements Task28{
-
     @Override
-    public int getNumberOvertaking(Set<Car> cars, int lengthLap, int numberLaps) {
+    public int getNumberOvertaking(Set<Car> cars, int lapLength, int lapsCount) {
         List<Car> listCars = new ArrayList<>(cars);
-        int distance = lengthLap * numberLaps;
+        int distance = lapLength * lapsCount;
         int overTakingCount = 0;
 
         for (int i = 0; i < listCars.size(); i++) {
             for (int j = i + 1; j < listCars.size(); j++) {
-                overTakingCount+=countOverTaing(listCars.get(i), listCars.get(j), distance, lengthLap);
+                overTakingCount+=countOverTaing(listCars.get(i), listCars.get(j), distance, lapLength);
             }
         }
         return overTakingCount;
     }
 
-    private static int countOverTaing(Car firstCar, Car secondCar, int distance, int lapLength){
+    private static int countOverTaing(Car first, Car second, int distance, int length){
         int result = 0;
-        int timeFirstCar = distance / firstCar.getSpeed();
-        int timeSecondCar = distance / secondCar.getSpeed();
-        int difference = (distance - Math.min(firstCar.getSpeed(), secondCar.getSpeed()) * Math.min(timeFirstCar, timeSecondCar));
+        int timeFirstCar = distance / first.getSpeed();
+        int timeSecondCar = distance / second.getSpeed();
+        int difference = (distance - Math.min(first.getSpeed(), second.getSpeed()) * Math.min(timeFirstCar, timeSecondCar));
 
-        result += Math.abs(difference / lapLength);
+        result += Math.abs(difference / length);
 
-        if ((firstCar.getStartPosition() < secondCar.getStartPosition()) && (secondCar.getSpeed() > firstCar.getSpeed())) {
-            ++result;
+        if ((first.getStartPosition() < second.getStartPosition()) && (second.getSpeed() > first.getSpeed())) {
+            result += 1;
         }
-        if ((firstCar.getStartPosition() > secondCar.getStartPosition()) && (secondCar.getSpeed() < firstCar.getSpeed())) {
-            ++result;
+        if ((first.getStartPosition() > second.getStartPosition()) && (second.getSpeed() < first.getSpeed())) {
+            result += 1;
         }
         return result;
     }
+
+
+
 }
 
 class CarImpl implements Task28.Car {
